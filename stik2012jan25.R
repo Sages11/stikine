@@ -11,15 +11,18 @@
 #Will also:
 # test for consistency for petersen estimator
 # calculated abundance and variance
-# estimate ASL and varaivce 
+# estimate ASL and variancece 
 # do all calcs necessary for report
 #USES data from 1) kakwan point (mark)  
 #               2) Canadian commercial fishery (cancom) 
 #               3) spawning sites (vertahl)
+#now on Github
 
 #install.packages("knitr")
 #install.packages("ggplot2")
 #install.packages("lattice")
+install.packages("lattice")
+install.packages("sm")
 require(graphics)
 #library(ggplot2)
 library(plyr)
@@ -711,17 +714,16 @@ Wl <-574
  cat("Age and Sex composition of cancom harvest and mean length at age 
      See final summaries in tables")
 ###############################################################################
-
-###############################################################################
-#total number of fish in the MEDIUM cancom fishery:
-###############################################################################
+ ###############################################################################
+ #total number of fish in the MEDIUM cancom fishery:
+ ###############################################################################
  
-#number of fish of each eu age  and gender in the MEDIUM cancom fishery:
-tm <- table(cancomm$sex, cancomm$ageeu)
-n  <- sum(tm)
-tm <-addmargins(tm,1)
-tm <- cbind(tm, Total = rowSums(tm))
-
+ #number of fish of each eu age  and gender in the MEDIUM cancom fishery:
+ tm <- table(cancomm$sex, cancomm$ageeu)
+ n  <- sum(tm)
+ tm <-addmargins(tm,1)
+ tm <- cbind(tm, Total = rowSums(tm))
+ 
 #equation 15 in 2015 op plan percent of fish of each eu age in the MEDIUM cancom fishery:
 pm <- tm/n
 # Equation 26 in 2015 op plan variance of fish of each eu age in the MEDIUM cancom fishery:
@@ -846,7 +848,9 @@ cat("Large             Chinook salmon (>=660 mm MEF) Harvest percent of total")
 HLoasl <- displayabundance(ta[,,1], pa[,,1], SEpijH[,,1], NLjH, SENLjH )
 
 #cat("Small, medium and Large Chinook salmon combined Harvest # for in river run.")
+#Same as Haasl
 #(harvestestall <-displayabundance(tb, pNjH, SEpNjH, NjH, SENjH))
+#harvestestall-Haasl
 
 #C2
 cat("Estimated age/gender/size composition by size of Chinook  salmon  Harvest")
@@ -2085,8 +2089,4 @@ rownames(inriverrunby) <- c("female medium",  "female medium se",
                           "combined all",   "combined all se")
 inriverrunby
 
- smoke <- matrix(c(51,43,22,92,28,21,68,22,9),ncol=3,byrow=TRUE)
- colnames(smoke) <- c("High","Low","Middle")
- rownames(smoke) <- c("current","former","never")
- smoke <- as.table(smoke)
- smoke
+
